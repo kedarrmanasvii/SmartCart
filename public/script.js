@@ -1,5 +1,9 @@
 async function loadProducts() {
 
+    const featureResponse = await fetch("/api/features");
+
+    const features = await featureResponse.json();
+
     const response = await fetch("/api/products");
 
     const products = await response.json();
@@ -15,13 +19,19 @@ async function loadProducts() {
         productDiv.className = "product";
 
         productDiv.innerHTML = `
-            <h3>${product.name}</h3>
-            <p>Price: ₹${product.price}</p>
+    <h3>${product.name}</h3>
+    <p>Price: ₹${product.price}</p>
 
-            <button onclick="addToCart('${product.name}', ${product.price})">
-                Add to Cart
-            </button>
-        `;
+    <button onclick="addToCart('${product.name}', ${product.price})">
+        Add to Cart
+    </button>
+
+    ${features.buyNow ? `
+        <button onclick="buyNow('${product.name}', ${product.price})">
+            Buy Now
+        </button>
+    ` : ""}
+`;
 
         productsContainer.appendChild(productDiv);
     });
@@ -101,6 +111,10 @@ function checkout() {
     localStorage.removeItem("cart");
 
     displayCart();
+}
+
+function buyNow(productName, price) {
+    alert(`Order placed successfully for ${productName} - ₹${price}`);
 }
 
 displayCart();
