@@ -17,7 +17,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t smartcart:%BUILD_NUMBER% .'
+                bat '"C:\\Users\\manas\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" build -t smartcart:%BUILD_NUMBER% .'
             }
         }
     }
